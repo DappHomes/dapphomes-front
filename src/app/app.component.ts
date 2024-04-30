@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThresholdMessageKit } from '@nucypher/taco';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'dapphomes-front';
+  messageKit!: ThresholdMessageKit;
+
+  handleSecretMessage(messageKit: ThresholdMessageKit) {
+    this.messageKit = messageKit;
+  }
 }
