@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { initialize, encrypt, conditions, domains, ThresholdMessageKit } from '@nucypher/taco';
-import { ethers } from "ethers";
+import { getWeb3Provider } from '../utils/utils';
 
 @Component({
   selector: 'encrypt',
@@ -19,7 +19,7 @@ export class EncryptComponent implements OnInit {
   private async encrypt() {
     await initialize();
     
-    const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
+    const web3Provider = getWeb3Provider();
     const signer = await web3Provider.getSigner();
 
     const ownsETH = new conditions.base.rpc.RpcCondition({
@@ -32,7 +32,7 @@ export class EncryptComponent implements OnInit {
       },
     });
 
-    const message = "my secret message from Angular";
+    const message = "My secret message from Angular";
 
     const messageKit = await encrypt(
       web3Provider,

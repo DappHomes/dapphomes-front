@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { initialize, decrypt, domains, getPorterUri, ThresholdMessageKit } from '@nucypher/taco';
-import { ethers } from "ethers";
+import { decrypt, domains, getPorterUri, ThresholdMessageKit } from '@nucypher/taco';
+import { decodeUint8Array, getWeb3Provider } from '../utils/utils';
 
 @Component({
   selector: 'decrypt',
@@ -19,7 +19,7 @@ export class DecryptComponent implements OnInit {
   }
 
   private async decrypt() {
-    const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
+    const web3Provider = getWeb3Provider();
     const signer = await web3Provider.getSigner()
 
     const decryptedMessage = await decrypt(
@@ -30,6 +30,6 @@ export class DecryptComponent implements OnInit {
       signer
     );
 
-    return new TextDecoder().decode(decryptedMessage);
+    return decodeUint8Array(decryptedMessage);
   }
 }
