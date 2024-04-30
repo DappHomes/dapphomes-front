@@ -32,7 +32,21 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "bn.js",
+              "aes-js",
+              "scrypt-js",
+              "js-sha3",
+              "bech32",
+              "hash.js",
+              "@nucypher/nucypher-contracts",
+              "qs",
+              "deep-equal",
+              "ethers/lib/ethers",
+              "ethers/lib/utils",
+              "semver"
+            ]
           },
           "configurations": {
             "production": {
