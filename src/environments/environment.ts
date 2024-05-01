@@ -1,3 +1,5 @@
+import { commonEnvironment } from './environment.common';
+
 const ethereum = {
   chainId: 1,
   name: 'Ethereum',
@@ -11,6 +13,7 @@ const chains = [
 ]
 
 export const environment = {
+  ...commonEnvironment,
   chains,
   projectId: import.meta.env.NG_APP_PROJECT_ID
 };

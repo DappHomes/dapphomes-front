@@ -1,3 +1,5 @@
+import { commonEnvironment } from './environment.common';
+
 const sepolia = {
   chainId: 11155111,
   name: 'Sepolia Testnet',
@@ -20,6 +22,7 @@ const chains = [
 ];
 
 export const environment = {
+  ...commonEnvironment,
   chains,
   projectId: import.meta.env.NG_APP_PROJECT_ID
 };
