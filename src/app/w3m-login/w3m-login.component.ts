@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5';
-import { ThemeMode } from '@web3modal/core';
+import { Web3ModalService } from '../services/web3modal.service';
 
 @Component({
   selector: 'w3m-login',
@@ -10,32 +8,11 @@ import { ThemeMode } from '@web3modal/core';
 })
 
 export class W3MLoginComponent implements OnInit {
-  constructor() { }
+  constructor(private web3ModalService: Web3ModalService) { }
 
   ngOnInit(): void {
-    this.createWeb3Modal();
-  }
-
-  private createWeb3Modal() {    
-    const ethersConfig = defaultConfig({
-      metadata: environment.metadata,
-      defaultChainId: environment.chains[0].chainId
-    });
-
-    const web3ModalConfig = {
-      themeMode: 'dark' as ThemeMode,
-      ethersConfig,
-      chains: environment.chains,
-      projectId: environment.projectId,
-      enableAnalytics: true,
-      enableOnramp: true
-    }
-    
-    const modal = createWeb3Modal(web3ModalConfig);
-    
-    modal.subscribeState(newState => console.log(newState));
-    
-    const { open, selectedNetworkId } = modal.getState();
+    this.web3ModalService.web3Modal.subscribeState(newState => console.log(newState));
+    const { open, selectedNetworkId } = this.web3ModalService.web3Modal.getState();
     console.log('selectedNetworkId: ', selectedNetworkId);
   }
 }

@@ -1,4 +1,6 @@
+import { defaultConfig } from '@web3modal/ethers5';
 import { commonEnvironment } from './environment.common';
+import { ThemeMode } from '@web3modal/core';
 
 const ethereum = {
   chainId: 1,
@@ -12,8 +14,20 @@ const chains = [
   ethereum,
 ]
 
-export const environment = {
-  ...commonEnvironment,
+const ethersConfig = defaultConfig({
+  metadata: commonEnvironment.metadata,
+  defaultChainId: chains[0].chainId
+});
+
+const web3ModalConfig = {
+  themeMode: 'dark' as ThemeMode,
+  ethersConfig,
   chains,
-  projectId: import.meta.env.NG_APP_PROJECT_ID
+  projectId: import.meta.env.NG_APP_PROJECT_ID,
+  enableAnalytics: true,
+  enableOnramp: true
+};
+
+export const environment = {
+  web3ModalConfig
 };
