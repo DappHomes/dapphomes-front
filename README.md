@@ -4,6 +4,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
+Create an account in `https://cloud.walletconnect.com/` to obtain your `Project ID` that gives you access to WalletConnect Cloud.
+
+Create an `.env` file in the root project and add `NG_APP_PROJECT_ID = 'YOUR_PROJECT_ID'`
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
