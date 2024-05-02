@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { W3MLoginComponent } from './w3m-login/w3m-login.component';
+import { W3MLoginComponent } from './components/w3m-login/w3m-login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    W3MLoginComponent
+    W3MLoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

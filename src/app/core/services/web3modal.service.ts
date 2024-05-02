@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Web3Modal, createWeb3Modal } from '@web3modal/ethers5';
 
 @Injectable({providedIn: 'root'})
