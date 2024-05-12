@@ -29,5 +29,7 @@ const web3ModalConfig = {
 };
 
 export const environment = {
-  web3ModalConfig
+  web3ModalConfig,
+  ABI: commonEnvironment.ABI,
+  CONTRACT_ADDRESS: commonEnvironment.CONTRACT_ADDRESS,
 };
