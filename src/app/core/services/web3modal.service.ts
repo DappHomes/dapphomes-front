@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Web3Modal, createWeb3Modal } from '@web3modal/ethers5';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class Web3ModalService {
   private web3Modal: Web3Modal;
-  
+
   constructor() {
     this.web3Modal = createWeb3Modal(environment.web3ModalConfig);
   }
@@ -28,6 +28,6 @@ export class Web3ModalService {
 
   accountChange(callback: (state: any) => void) {
     const provider = this.getWalletProvider();
-    return provider?.on("accountsChanged", callback);
+    return provider?.on('accountsChanged', callback);
   }
 }

@@ -1,22 +1,22 @@
 import { defaultConfig } from '@web3modal/ethers5';
-import { commonEnvironment } from './environment.common';
 import { ThemeMode } from '@web3modal/core';
+import { commonEnvironment } from './environment.common';
 
 const ethereum = {
   chainId: 1,
   name: 'Ethereum',
   currency: 'ETH',
   explorerUrl: 'https://etherscan.io',
-  rpcUrl: 'https://cloudflare-eth.com'
-}
+  rpcUrl: 'https://cloudflare-eth.com',
+};
 
 const chains = [
   ethereum,
-]
+];
 
 const ethersConfig = defaultConfig({
   metadata: commonEnvironment.metadata,
-  defaultChainId: chains[0].chainId
+  defaultChainId: chains[0].chainId,
 });
 
 const web3ModalConfig = {
@@ -25,7 +25,7 @@ const web3ModalConfig = {
   chains,
   projectId: import.meta.env.NG_APP_PROJECT_ID,
   enableAnalytics: true,
-  enableOnramp: true
+  enableOnramp: true,
 };
 
 export const environment = {

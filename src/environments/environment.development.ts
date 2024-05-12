@@ -1,13 +1,13 @@
 import { ThemeMode } from '@web3modal/core';
-import { commonEnvironment } from './environment.common';
 import { defaultConfig } from '@web3modal/ethers5';
+import { commonEnvironment } from './environment.common';
 
 const sepolia = {
   chainId: 11155111,
   name: 'Sepolia Testnet',
   currency: 'ETH',
   explorerUrl: 'https://sepolia.etherscan.io',
-  rpcUrl: 'https://sepolia.drpc.org'
+  rpcUrl: 'https://sepolia.drpc.org',
 };
 
 const amoy = {
@@ -15,7 +15,7 @@ const amoy = {
   name: 'Amoy',
   currency: 'MATIC',
   explorerUrl: 'https://www.oklink.com/es-la/polygon-zkevm',
-  rpcUrl: 'https://polygon-amoy-bor-rpc.publicnode.com/'
+  rpcUrl: 'https://polygon-amoy-bor-rpc.publicnode.com/',
 };
 
 const chains = [
@@ -25,7 +25,7 @@ const chains = [
 
 const ethersConfig = defaultConfig({
   metadata: commonEnvironment.metadata,
-  defaultChainId: chains[0].chainId
+  defaultChainId: chains[0].chainId,
 });
 
 const web3ModalConfig = {
@@ -34,7 +34,7 @@ const web3ModalConfig = {
   chains,
   projectId: import.meta.env.NG_APP_PROJECT_ID,
   enableAnalytics: true,
-  enableOnramp: true
+  enableOnramp: true,
 };
 
 export const environment = {
