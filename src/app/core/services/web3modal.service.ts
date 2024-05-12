@@ -25,4 +25,9 @@ export class Web3ModalService {
   getState() {
     return this.web3Modal.getState();
   }
+
+  accountChange(callback: (state: any) => void) {
+    const provider = this.getWalletProvider();
+    return provider?.on("accountsChanged", callback);
+  }
 }
