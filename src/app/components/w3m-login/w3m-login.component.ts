@@ -12,7 +12,7 @@ export class W3MLoginComponent implements OnInit {
   constructor(private web3ModalService: Web3ModalService, private router: Router,) { }
 
   ngOnInit(): void {
-    this.web3ModalService.web3Modal.subscribeState(({selectedNetworkId}) => {
+    this.web3ModalService.subscribeState(({selectedNetworkId}) => {
       if (selectedNetworkId) {
         this.router.navigate(['/dashboard']);
       }
