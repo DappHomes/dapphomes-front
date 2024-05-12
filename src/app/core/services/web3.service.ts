@@ -3,7 +3,7 @@ import Web3, { Numbers } from 'web3';
 import { Web3ModalService } from '@services/web3modal.service';
 import { environment } from '@env/environment';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class Web3Service {
   private web3!: Web3;
   private contract!: any;

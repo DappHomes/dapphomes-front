@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Web3Modal, createWeb3Modal } from '@web3modal/ethers5';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class Web3ModalService {
   private web3Modal: Web3Modal;
   
