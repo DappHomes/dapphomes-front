@@ -1,12 +1,28 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { environment } from '@env/environment';
 import { Web3Modal, createWeb3Modal } from '@web3modal/ethers5';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class Web3ModalService {
-  web3Modal: Web3Modal;
-
+  private web3Modal: Web3Modal;
+  
   constructor() {
     this.web3Modal = createWeb3Modal(environment.web3ModalConfig);
+  }
+
+  getWalletProvider() {
+    return this.web3Modal.getWalletProvider();
+  }
+
+  getAddress() {
+    return this.web3Modal.getAddress();
+  }
+
+  subscribeState(callback: (state: any) => void) {
+    return this.web3Modal.subscribeState(callback);
+  }
+
+  getState() {
+    return this.web3Modal.getState();
   }
 }
