@@ -45,7 +45,18 @@
               "deep-equal",
               "ethers/lib/ethers",
               "ethers/lib/utils",
-              "semver"
+              "semver",
+              "cross-fetch",
+              "@walletconnect/environment",
+              "qrcode",
+              "@stablelib/ed25519",
+              "dayjs",
+              "dayjs/plugin/relativeTime.js",
+              "dayjs/plugin/updateLocale.js",
+              "@coinbase/wallet-sdk",
+              "crc-32",
+              "@ethereumjs/rlp",
+              "setimmediate"
             ]
           },
           "configurations": {
