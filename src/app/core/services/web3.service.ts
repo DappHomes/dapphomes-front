@@ -20,11 +20,11 @@ export class Web3Service {
 
   async isSubscribed() {
     const address = this.web3ModalService.getAddress();
-    return await this.contract.methods.isSubscribed(address).call();
+    return this.contract.methods.isSubscribed(address).call();
   }
 
   async getPrice(): Promise<Numbers> {
-    return await this.contract.methods.price().call();
+    return this.contract.methods.price().call();
   }
 
   async doSubscription() {
@@ -34,7 +34,7 @@ export class Web3Service {
       gas: 3000000,
       value,
     };
-    return await this.contract.methods.subscribe().send(tx);
+    return this.contract.methods.subscribe().send(tx);
   }
 
   async getEtherSubscriptionPrice() {
