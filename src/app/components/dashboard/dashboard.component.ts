@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PinataService } from '@services/pinata.service';
 
 @Component({
   selector: 'dashboard',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class DashboardComponent implements OnInit {
-  constructor() { }
+  constructor(private pinataService: PinataService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.pinataService.getData().then();
+  }
 }

@@ -89,9 +89,12 @@ const ABI = [{ inputs: [{ internalType: 'uint256', name: 'initialPrice', type: '
 
 const CONTRACT_ADDRESS = '0x0f8D52Be2D2dc454B4f2639b61a4BB82ec2Ff440';
 
+const PINATA_PIN_LIST_URL = 'https://api.pinata.cloud/data/pinList';
+
 export const commonEnvironment = {
   ABI,
   CONTRACT_ADDRESS,
+  PINATA_PIN_LIST_URL,
   metadata: {
     name: 'DappHomes',
     description: 'DappHomes',
