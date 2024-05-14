@@ -18,7 +18,7 @@ export class PinataService {
   private async decryptFromBytes(encryptedBytes: Uint8Array) {
     const browserProvider = new ethers.providers.Web3Provider((window as any).ethereum);
     const web3Provider = new ethers.providers.JsonRpcProvider(
-      'https://rpc-amoy.polygon.technology',
+      environment.TACO_PROVIDER,
     );
     const network = await web3Provider.getNetwork();
     if (network.chainId !== 80002) {

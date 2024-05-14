@@ -35,5 +35,5 @@ export const environment = {
   PINATA_PIN_LIST_URL: commonEnvironment.PINATA_PIN_LIST_URL,
   IPFS_BASE_URL: import.meta.env.NG_APP_IPFS_BASE_URL,
   PINATA_PIN_LIST_TOKEN: import.meta.env.NG_APP_PINATA_PIN_LIST_TOKEN,
-  TACO_PROVIDER: import.meta.env.NG_TACO_PROVIDER,
+  TACO_PROVIDER: commonEnvironment.TACO_PROVIDER,
 };
