@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { ThresholdMessageKit, decrypt, domains } from '@nucypher/taco';
-import { ethers } from 'ethers';
+import { ThresholdMessageKit, decrypt, domains, initialize, getPorterUri, fromBytes } from '@nucypher/taco';
+import { ethers, providers } from 'ethers';
 
 @Injectable({ providedIn: 'root' })
 export class PinataService {
@@ -16,13 +16,26 @@ export class PinataService {
   }
 
   private async decryptFromBytes(encryptedBytes: Uint8Array) {
-    const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
+    const browserProvider = new ethers.providers.Web3Provider((window as any).ethereum);
+    const web3Provider = new ethers.providers.JsonRpcProvider(
+      'https://rpc-amoy.polygon.technology',
+    );
+    const network = await web3Provider.getNetwork();
+    if (network.chainId !== 80002) {
+      console.error('Please connect to Polygon Amoy testnet');
+    }
+    await initialize();
+
     const messageKit = ThresholdMessageKit.fromBytes(encryptedBytes);
 
-    return decrypt(
+    const decryptedBytes = await decrypt(
       web3Provider,
       domains.TESTNET,
       messageKit,
+      getPorterUri(domains.TESTNET),
+      browserProvider.getSigner(),
     );
+    const decryptedMessageString = fromBytes(decryptedBytes);
+    console.log('Decrypted message: ', decryptedMessageString);
   }
 }
