@@ -6,7 +6,8 @@
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-18-bookworm",
 	"runArgs": [
 		"--network=host"
-	]
+	],
+	"postCreateCommand": "npm i"
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
