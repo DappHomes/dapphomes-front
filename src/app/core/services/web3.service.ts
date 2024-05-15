@@ -18,11 +18,6 @@ export class Web3Service {
     return this.web3.utils.fromWei(value, 'ether');
   }
 
-  async isSubscribed() {
-    const address = this.web3ModalService.getAddress();
-    return this.contract.methods.isSubscribed(address).call();
-  }
-
   async getPrice(): Promise<Numbers> {
     return this.contract.methods.price().call();
   }
