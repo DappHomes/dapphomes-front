@@ -385,7 +385,7 @@ const ABI = [
 	}
 ];
 
-const CONTRACT_ADDRESS = '0x4EFedc61F04f09cC55823Ac96E7866f69dd29800';
+const CONTRACT_ADDRESS = '0x898f4f82fcbcc94457310d7c2900d14e4781157a';
 
 const PINATA_PIN_LIST_URL = 'https://api.pinata.cloud/data/pinList';
 
