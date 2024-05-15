@@ -389,13 +389,10 @@ const CONTRACT_ADDRESS = '0x4EFedc61F04f09cC55823Ac96E7866f69dd29800';
 
 const PINATA_PIN_LIST_URL = 'https://api.pinata.cloud/data/pinList';
 
-const TACO_PROVIDER = 'https://rpc-amoy.polygon.technology'
-
 export const commonEnvironment = {
 	ABI,
 	CONTRACT_ADDRESS,
 	PINATA_PIN_LIST_URL,
-	TACO_PROVIDER,
 	metadata: {
 		name: 'DappHomes',
 		description: 'DappHomes',
