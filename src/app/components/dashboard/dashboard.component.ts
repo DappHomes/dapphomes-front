@@ -9,11 +9,16 @@ import { ERRORS } from '@utils/messages';
 })
 
 export class DashboardComponent implements OnInit {
+  isDashboardVisible = false;
+
   constructor(private pinataService: PinataService, private router: Router) { }
 
   ngOnInit() {
     this.pinataService.getData()
-      .then((response) => console.log('Decrypted response:', response))
+      .then((response) => {
+        this.isDashboardVisible = true;
+        console.log('Decrypted response:', response);
+      })
       .catch((error) => {
         console.error(error.message);
         if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {

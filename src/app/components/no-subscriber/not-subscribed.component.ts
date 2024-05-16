@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Numbers } from 'web3';
 import { Router } from '@angular/router';
 import { Web3Service } from '../../core/services/web3.service';
 import { MESSAGES } from '../../utils/messages';
@@ -7,6 +6,7 @@ import { MESSAGES } from '../../utils/messages';
 @Component({
   selector: 'not-subscribed',
   templateUrl: './not-subscribed.component.html',
+  styleUrls: ['not-subscribed.component.scss'],
 })
 
 export class NotSubscribedComponent implements OnInit {
