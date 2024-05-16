@@ -5,3 +5,7 @@ export const MESSAGES = {
     SUBSCRIBE: 'Subscribe',
   },
 };
+
+export const ERRORS = {
+  DECRYPTION_FAILED: 'TACo decryption failed with errors',
+};

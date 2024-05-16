@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PinataService } from '@services/pinata.service';
+import { ERRORS } from '@utils/messages';
 
 @Component({
   selector: 'dashboard',
@@ -7,9 +9,16 @@ import { PinataService } from '@services/pinata.service';
 })
 
 export class DashboardComponent implements OnInit {
-  constructor(private pinataService: PinataService) { }
+  constructor(private pinataService: PinataService, private router: Router) { }
 
   ngOnInit() {
-    this.pinataService.getData().then();
+    this.pinataService.getData()
+      .then((response) => console.log('Decrypted response:', response))
+      .catch((error) => {
+        console.error(error.message);
+        if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {
+          this.router.navigate(['/not-subscribed']);
+        }
+      });
   }
 }

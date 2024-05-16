@@ -7,8 +7,8 @@ import { HasNetworkIdGuard } from '@guards/has-netwrok-guard.service';
 
 const routes: Routes = [
   { path: '', component: W3MLoginComponent },
-  { path: 'not-subscribed', component: NotSubscribedComponent }, // Fix when user enter directly here
   { path: 'dashboard', component: DashboardComponent, canActivate: [HasNetworkIdGuard] },
+  { path: 'not-subscribed', component: NotSubscribedComponent }, // Fix when user enter directly here
 ];
 
 @NgModule({

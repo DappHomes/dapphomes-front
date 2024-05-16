@@ -25,7 +25,7 @@ const chains = [
 
 const ethersConfig = defaultConfig({
   metadata: commonEnvironment.metadata,
-  defaultChainId: chains[0].chainId,
+  defaultChainId: chains[1].chainId,
 });
 
 const web3ModalConfig = {

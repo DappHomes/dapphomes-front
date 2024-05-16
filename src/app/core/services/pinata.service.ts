@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { ThresholdMessageKit, decrypt, domains, initialize, getPorterUri, fromBytes } from '@nucypher/taco';
+import {
+  ThresholdMessageKit, decrypt, domains, getPorterUri, fromBytes,
+} from '@nucypher/taco';
 import { ethers } from 'ethers';
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +14,7 @@ export class PinataService {
     const lastPinnedFile = data.rows[0].ipfs_pin_hash;
     const pifsResult = await fetch(environment.IPFS_BASE_URL + lastPinnedFile);
     const resp = Buffer.from(await pifsResult.arrayBuffer());
-    this.decryptFromBytes(resp).then((response) => console.log('Decrypted response:', response));
+    return this.decryptFromBytes(resp);
   }
 
   private async decryptFromBytes(encryptedBytes: Uint8Array) {
@@ -27,7 +29,6 @@ export class PinataService {
       });
     }
     await browserProvider.send('eth_requestAccounts', []);
-    await initialize();
 
     const messageKit = ThresholdMessageKit.fromBytes(encryptedBytes);
 
@@ -38,7 +39,7 @@ export class PinataService {
       getPorterUri(domains.TESTNET),
       browserProvider.getSigner(),
     );
-    const decryptedMessageString = fromBytes(decryptedBytes);
-    console.log('Decrypted message: ', decryptedMessageString);
+
+    return fromBytes(decryptedBytes);
   }
 }
