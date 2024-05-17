@@ -22,4 +22,8 @@
     <h2>This is the last message from {{ formData.houseAddress}}:</h2>
     <pre>{{ rawData | json }}</pre>
   </div>
+
+  <div *ngIf="notAnAddress">
+    <p>{{ notAnAddress }}</p>
+  </div>
 </div>

@@ -14,6 +14,10 @@ export class Web3Service {
     // this.initContract();
   }
 
+  checkAddress(address: string): boolean {
+    return this.web3.utils.isAddress(address);
+  }
+
   getEtherConversion(value: Numbers) {
     return this.web3.utils.fromWei(value, 'ether');
   }

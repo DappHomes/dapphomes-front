@@ -33,26 +33,33 @@ export class DashboardComponent implements OnInit {
 
   rawData: string = '';
 
+  notAnAddress: string = '';
+
   onSubmit() {
     // 1. choose a house given the address
     this.submitted = true;
-    this.web3Service.initContract(this.formData.houseAddress);
 
-    // 2. get pinata token
-    this.web3Service.getListToken().then((value: string) => {
-      this.listToken = value;
+    if (this.web3Service.checkAddress(this.formData.houseAddress)) {
+      this.web3Service.initContract(this.formData.houseAddress);
 
-      // 3. try to decrypt data
-      this.pinataService.getData(this.listToken)
-        .then((response) => {
-          this.isDashboardVisible = true;
-          this.rawData = JSON.parse(response);
-        })
-        .catch((error) => {
-          if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {
-            this.router.navigate(['/not-subscribed']);
-          }
-        });
-    });
+      // 2. get pinata token
+      this.web3Service.getListToken().then((value: string) => {
+        this.listToken = value;
+
+        // 3. try to decrypt data
+        this.pinataService.getData(this.listToken)
+          .then((response) => {
+            this.isDashboardVisible = true;
+            this.rawData = JSON.parse(response);
+          })
+          .catch((error) => {
+            if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {
+              this.router.navigate(['/not-subscribed']);
+            }
+          });
+      });
+    } else {
+      this.notAnAddress = 'Sorry, this is not a valid address :(';
+    }
   }
 }
