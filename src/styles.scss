@@ -28,7 +28,12 @@ p, pre {
 }
 
 button {
-  color: #212121;
-  background-color: white;
-  border-radius: 8px;
+  color: white;
+}
+
+.center {
+  margin: auto;
+  width: 60%;
+  border: 3px solid white;
+  padding: 10px;
 }
