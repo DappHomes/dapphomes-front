@@ -17,6 +17,13 @@ export class PinataService {
     return this.decryptFromBytes(resp);
   }
 
+  async getPinList(token: string) {
+    const options = { method: 'GET', headers: { Authorization: `Bearer ${token}` } };
+    const result = await fetch(environment.PINATA_PIN_LIST_URL, options);
+    const data = await result.json();
+    return data.rows;
+  }
+
   private async decryptFromBytes(encryptedBytes: Uint8Array) {
     const browserProvider = new ethers.providers.Web3Provider((window as any).ethereum, 'any');
 

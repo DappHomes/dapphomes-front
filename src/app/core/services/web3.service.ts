@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Web3, { Numbers } from 'web3';
+import { validator } from 'web3-validator';
 import { Web3ModalService } from '@services/web3modal.service';
 import { environment } from '@env/environment';
 
@@ -15,7 +16,12 @@ export class Web3Service {
   }
 
   checkAddress(address: string): boolean {
-    return this.web3.utils.isAddress(address);
+    try {
+      validator.validate(['address'], [address]);
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 
   getEtherConversion(value: Numbers) {
