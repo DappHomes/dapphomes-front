@@ -772,14 +772,10 @@ const ABI_AMOY = [
   },
 ];
 
-// const CONTRACT_ADDRESS_SEPOLIA = '0x4EFedc61F04f09cC55823Ac96E7866f69dd29800';
-// const CONTRACT_ADDRESS_AMOY = '0x898f4f82fcBCC94457310D7c2900d14e4781157A';
-
 const PINATA_PIN_LIST_URL = 'https://api.pinata.cloud/data/pinList';
 
 export const commonEnvironment = {
   ABI: ABI_AMOY,
-  // CONTRACT_ADDRESS: CONTRACT_ADDRESS_AMOY,
   PINATA_PIN_LIST_URL,
   metadata: {
     name: 'DappHomes',
