@@ -9,7 +9,7 @@
 
 body {
   min-height: 100dvh;
-  background-color: #F4F7FF;
+  background-color: #212121;
 }
 
 body,html {
@@ -19,8 +19,16 @@ body,html {
 
 h1, h2, h3, h4 {
   text-wrap: balance;
+  color: white;
 }
 
-p {
+p, pre {
   text-wrap: pretty;
+  color: white;
+}
+
+button {
+  color: #212121;
+  background-color: white;
+  border-radius: 8px;
 }

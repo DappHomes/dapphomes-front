@@ -11,7 +11,7 @@ export class Web3Service {
 
   constructor(private web3ModalService: Web3ModalService) {
     this.initWeb3(web3ModalService);
-    this.initContract();
+    // this.initContract();
   }
 
   getEtherConversion(value: Numbers) {
@@ -20,6 +20,15 @@ export class Web3Service {
 
   async getPrice(): Promise<Numbers> {
     return this.contract.methods.price().call();
+  }
+
+  async listToken(): Promise<string> {
+    return this.contract.methods.listToken().call();
+  }
+
+  async getListToken() {
+    const token = await this.contract.methods.listToken().call();
+    return token;
   }
 
   async doSubscription() {
@@ -42,7 +51,10 @@ export class Web3Service {
     this.web3 = new Web3(provider);
   }
 
-  private initContract() {
-    this.contract = new this.web3.eth.Contract(environment.ABI, environment.CONTRACT_ADDRESS);
+  initContract(address: string) {
+    this.contract = new this.web3.eth.Contract(
+      environment.ABI,
+      address,
+    );
   }
 }

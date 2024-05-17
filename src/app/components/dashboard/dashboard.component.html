@@ -2,4 +2,24 @@
   <h1 class="text-3xl font-bold underline">
     Dashboard
   </h1>
+
+  <h1 class="text-3xl font-bold">
+    Which house do you want to connect to?
+  </h1>
+
+  <form #hose="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <input type="text" name="huseAddress" placeholder="House address" [(ngModel)]="formData.houseAddress">
+    <button type="submit">Submit</button>
+    <br />
+  </form>
+
+  <div *ngIf="submitted">
+    <p>Connecting to... {{ formData.houseAddress }}</p>
+  </div>
+
+  <div *ngIf="rawData">
+    <h3>You are subscribed! :)</h3>
+    <h2>This is the last message from {{ formData.houseAddress}}:</h2>
+    <pre>{{ rawData | json }}</pre>
+  </div>
 </div>

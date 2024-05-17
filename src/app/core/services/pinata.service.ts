@@ -7,8 +7,8 @@ import { ethers } from 'ethers';
 
 @Injectable({ providedIn: 'root' })
 export class PinataService {
-  async getData() {
-    const options = { method: 'GET', headers: { Authorization: `Bearer ${environment.PINATA_PIN_LIST_TOKEN}` } };
+  async getData(token: string) {
+    const options = { method: 'GET', headers: { Authorization: `Bearer ${token}` } };
     const result = await fetch(environment.PINATA_PIN_LIST_URL, options);
     const data = await result.json();
     const lastPinnedFile = data.rows[0].ipfs_pin_hash;
