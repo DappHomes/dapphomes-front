@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { W3MLoginComponent } from '@components/w3m-login/w3m-login.component';
 import { DashboardComponent } from '@components/dashboard/dashboard.component';
 import { NotSubscribedComponent } from '@components/no-subscriber/not-subscribed.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -19,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -39,7 +39,8 @@ const web3ModalConfig = {
 
 export const environment = {
   web3ModalConfig,
-  ABI: commonEnvironment.ABI,
+  ABI_SUBSCRIPTION: commonEnvironment.ABI_SUBSCRIPTION,
+  ABI_MARKETPLACE: commonEnvironment.ABI_MARKETPLACE,
   PINATA_PIN_LIST_URL: commonEnvironment.PINATA_PIN_LIST_URL,
   IPFS_BASE_URL: import.meta.env.NG_APP_IPFS_BASE_URL,
   PINATA_PIN_LIST_TOKEN: import.meta.env.NG_APP_PINATA_PIN_LIST_TOKEN,

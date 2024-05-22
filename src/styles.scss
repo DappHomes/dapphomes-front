@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 * {
   box-sizing: border-box;
   min-width: 0;

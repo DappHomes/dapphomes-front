@@ -1,6 +1,6 @@
 <div *ngIf="isDashboardVisible">
   <br>
-  <h1 class="text-center mb-4 text-4xl font-sans leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+  <h1 class="text-center mb-4 text-4xl font-sans leading-none tracking-tight md:text-5xl lg:text-6xl dark:text-white">
     Which house do you want to connect to?
   </h1>
 
@@ -25,5 +25,13 @@
     <div *ngIf="notAnAddress" class="mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
       <p>{{ notAnAddress }}</p>
     </div>
+  </div>
+  <div class="flex justify-center">
+    <ng-select 
+      *ngIf="marketplaceAddresses.length > 0" 
+      class="w-1/4 mt-10"
+      [items]="marketplaceAddresses"
+      (change)="addressChange($event)">
+    </ng-select>
   </div>
 </div>

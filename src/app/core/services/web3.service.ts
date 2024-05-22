@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Web3, { Numbers } from 'web3';
+import Web3, { Address, Numbers } from 'web3';
 import { validator } from 'web3-validator';
 import { Web3ModalService } from '@services/web3modal.service';
 import { environment } from '@env/environment';
@@ -8,11 +8,27 @@ import { environment } from '@env/environment';
 export class Web3Service {
   private web3!: Web3;
 
-  private contract!: any;
+  private subscriptionContract!: any;
+
+  private marketplaceContract!: any;
 
   constructor(private web3ModalService: Web3ModalService) {
     this.initWeb3(web3ModalService);
-    // this.initContract();
+    this.initMarketplaceContract();
+  }
+
+  initSubscriptionContract(address: string) {
+    this.subscriptionContract = new this.web3.eth.Contract(
+      environment.ABI_SUBSCRIPTION,
+      address,
+    );
+  }
+
+  initMarketplaceContract() {
+    this.marketplaceContract = new this.web3.eth.Contract(
+      environment.ABI_MARKETPLACE,
+      '0xd659cbC22d4e22f0ed2234F7E87920EC06891DeC', // Move this
+    );
   }
 
   checkAddress(address: string): boolean {
@@ -29,16 +45,21 @@ export class Web3Service {
   }
 
   async getPrice(): Promise<Numbers> {
-    return this.contract.methods.price().call();
+    return this.subscriptionContract.methods.price().call();
   }
 
   async listToken(): Promise<string> {
-    return this.contract.methods.listToken().call();
+    return this.subscriptionContract.methods.listToken().call();
   }
 
   async getListToken() {
-    const token = await this.contract.methods.listToken().call();
+    // Check if it's the same as listToken.
+    const token = await this.subscriptionContract.methods.listToken().call();
     return token;
+  }
+
+  async getMarketplaces(): Promise<Address[]> {
+    return this.marketplaceContract.methods.getMarketplaces().call();
   }
 
   async doSubscription() {
@@ -48,7 +69,7 @@ export class Web3Service {
       gas: 3000000,
       value,
     };
-    return this.contract.methods.subscribe().send(tx);
+    return this.subscriptionContract.methods.subscribe().send(tx);
   }
 
   async getEtherSubscriptionPrice() {
@@ -59,12 +80,5 @@ export class Web3Service {
   private initWeb3(web3ModalService: Web3ModalService) {
     const provider = web3ModalService.getWalletProvider();
     this.web3 = new Web3(provider);
-  }
-
-  initContract(address: string) {
-    this.contract = new this.web3.eth.Contract(
-      environment.ABI,
-      address,
-    );
   }
 }
