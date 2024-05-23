@@ -4,24 +4,30 @@ import { PinataService } from '@services/pinata.service';
 import { Web3Service } from '@services/web3.service';
 import { ERRORS } from '@utils/messages';
 import { Address } from 'web3';
+import { Chart, ChartType, registerables } from 'chart.js';
 
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   isDashboardVisible = false;
   marketplaceAddresses: Address[] = [];
   selectedAddress!: Address;
+  isConnectingDisplayed = false;
   isValidAddress = false;
   listToken: string = '';
-  rawData: string = '';
+  rawData: any;
+  chart!: Chart;
 
   constructor(
     private pinataService: PinataService,
     private web3Service: Web3Service,
     private router: Router
-  ) {}
+  ) {
+    Chart.register(...registerables);
+  }
 
   ngOnInit(): void {
     this.isDashboardVisible = true;
@@ -33,6 +39,7 @@ export class DashboardComponent implements OnInit {
   submitAddress() {
     this.isValidAddress = this.web3Service.checkAddress(this.selectedAddress);
     if (this.isValidAddress) {
+      this.isConnectingDisplayed = true;
       this.web3Service.initSubscriptionContract(this.selectedAddress);
 
       // 2. get pinata token
@@ -43,8 +50,9 @@ export class DashboardComponent implements OnInit {
         this.pinataService
           .getData(this.listToken)
           .then((response) => {
-            this.isDashboardVisible = true;
+            this.isConnectingDisplayed = false;
             this.rawData = JSON.parse(response);
+            this.createChart();
           })
           .catch((error) => {
             if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {
@@ -57,5 +65,50 @@ export class DashboardComponent implements OnInit {
 
   addressChange(address: Address) {
     this.selectedAddress = address;
+  }
+
+  private createChart() {
+    const {
+      main: { temp, feels_like, temp_min, temp_max, humidity },
+      wind: { speed },
+      name,
+    } = this.rawData;
+    const data = {
+      labels: [
+        'Temp',
+        'Feels like',
+        'Temp min',
+        'Temp max',
+        'Humidity',
+        'Wind Speed',
+      ],
+      datasets: [
+        {
+          label: `Place ${name}`,
+          data: [temp, feels_like, temp_min, temp_max, humidity, speed],
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1,
+        },
+      ],
+    };
+    const options = {
+      scales: {
+        x: {
+          suggestedMin: 0,
+          suggestedMax: 60,
+        },
+        y: {
+          suggestedMin: 0,
+          suggestedMax: 60,
+        },
+      },
+    };
+
+    this.chart = new Chart('chart', {
+      type: 'line' as ChartType,
+      data,
+      options,
+    });
   }
 }

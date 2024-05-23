@@ -33,16 +33,21 @@
   </div>
   <div *ngIf="isValidAddress" class="center">
     <div
+      *ngIf="isConnectingDisplayed"
       class="flex justify-center items-center mb-10 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
     >
       <p>Connecting to... {{ selectedAddress }}</p>
+    </div>
+
+    <div [hidden]="!rawData" class="center chart">
+      <canvas id="chart"></canvas>
     </div>
 
     <div
       *ngIf="rawData"
       class="mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
     >
-      <h3>You are subscribed! :)</h3>
+      <h3 class="mt-20">You are subscribed! :)</h3>
       <br />
       <h2>This is the last message from {{ selectedAddress }}:</h2>
       <pre>{{ rawData | json }}</pre>
