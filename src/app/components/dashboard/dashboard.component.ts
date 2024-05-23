@@ -9,55 +9,39 @@ import { Address } from 'web3';
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
 })
-
 export class DashboardComponent implements OnInit {
   isDashboardVisible = false;
-
   marketplaceAddresses: Address[] = [];
-
   selectedAddress!: Address;
+  isValidAddress = false;
+  listToken: string = '';
+  rawData: string = '';
 
   constructor(
     private pinataService: PinataService,
     private web3Service: Web3Service,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.isDashboardVisible = true;
-    this.submitted = false;
-    this.web3Service.getMarketplaces()
-      .then((addresses) => {
-        this.marketplaceAddresses.push(...addresses);
-        this.selectedAddress = addresses[0];
-      });
+    this.web3Service.getMarketplaces().then((addresses) => {
+      this.marketplaceAddresses.push(...addresses);
+    });
   }
 
-  formData = {
-    houseAddress: '',
-  };
-
-  submitted: boolean = false;
-
-  listToken: string = '';
-
-  rawData: string = '';
-
-  notAnAddress: string = '';
-
-  onSubmit() {
-    // 1. choose a house given the address
-    this.submitted = true;
-
-    if (this.web3Service.checkAddress(this.formData.houseAddress)) {
-      this.web3Service.initSubscriptionContract(this.formData.houseAddress);
+  submitAddress() {
+    this.isValidAddress = this.web3Service.checkAddress(this.selectedAddress);
+    if (this.isValidAddress) {
+      this.web3Service.initSubscriptionContract(this.selectedAddress);
 
       // 2. get pinata token
       this.web3Service.getListToken().then((value: string) => {
         this.listToken = value;
 
         // 3. try to decrypt data
-        this.pinataService.getData(this.listToken)
+        this.pinataService
+          .getData(this.listToken)
           .then((response) => {
             this.isDashboardVisible = true;
             this.rawData = JSON.parse(response);
@@ -68,13 +52,10 @@ export class DashboardComponent implements OnInit {
             }
           });
       });
-    } else {
-      this.notAnAddress = 'Sorry, this is not a valid address :(';
     }
   }
 
   addressChange(address: Address) {
     this.selectedAddress = address;
-    this.formData.houseAddress = address;
   }
 }

@@ -6,8 +6,15 @@ import { W3MLoginComponent } from '@components/w3m-login/w3m-login.component';
 import { HasNetworkIdGuard } from '@guards/has-netwrok-guard.service';
 
 const routes: Routes = [
-  { path: '', component: W3MLoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [HasNetworkIdGuard] },
+  {
+    path: '',
+    component: W3MLoginComponent,
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [HasNetworkIdGuard],
+  },
   { path: 'not-subscribed', component: NotSubscribedComponent }, // Fix when user enter directly here
 ];
 
@@ -15,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,37 +1,51 @@
 <div *ngIf="isDashboardVisible">
-  <br>
-  <h1 class="text-center mb-4 text-4xl font-sans leading-none tracking-tight md:text-5xl lg:text-6xl dark:text-white">
+  <br />
+  <h1
+    class="text-center mb-4 text-4xl font-sans leading-none tracking-tight md:text-5xl lg:text-6xl dark:text-white"
+  >
     Which house do you want to connect to?
   </h1>
-
-  <form #house="ngForm" class="center mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400" (ngSubmit)="onSubmit()" novalidate>
-    <input type="text" name="houseAddress" placeholder="House address" [(ngModel)]="formData.houseAddress">
-    <button type="submit" class="not-subscribed__subscribe-btn w-36 text-white font-bold py-2 px-4 rounded">Submit</button>
-    <br />
-  </form>
-
-  <div class="center">
-    <div *ngIf="submitted" class="mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-      <p>Connecting to... {{ formData.houseAddress }}</p>
+  <div
+    *ngIf="marketplaceAddresses.length > 0"
+    class="flex justify-center items-center mt-10 mb-10"
+  >
+    <div class="mr-2 w-1/4">
+      <ng-select
+        class=""
+        [items]="marketplaceAddresses"
+        (change)="addressChange($event)"
+      >
+      </ng-select>
     </div>
 
-    <div *ngIf="rawData" class="mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+    <button
+      [disabled]="!selectedAddress"
+      class="bg-transparent text-white font-semibold hover:text-white py-2 px-4 rounded"
+      [ngClass]="{
+        'cursor-not-allowed opacity-50 border border-transparent':
+          !selectedAddress,
+        'border border-white': selectedAddress
+      }"
+      (click)="submitAddress()"
+    >
+      Submit
+    </button>
+  </div>
+  <div *ngIf="isValidAddress" class="center">
+    <div
+      class="flex justify-center items-center mb-10 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
+    >
+      <p>Connecting to... {{ selectedAddress }}</p>
+    </div>
+
+    <div
+      *ngIf="rawData"
+      class="mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
+    >
       <h3>You are subscribed! :)</h3>
-      <br>
-      <h2>This is the last message from {{ formData.houseAddress}}:</h2>
+      <br />
+      <h2>This is the last message from {{ selectedAddress }}:</h2>
       <pre>{{ rawData | json }}</pre>
     </div>
-
-    <div *ngIf="notAnAddress" class="mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-      <p>{{ notAnAddress }}</p>
-    </div>
-  </div>
-  <div class="flex justify-center">
-    <ng-select 
-      *ngIf="marketplaceAddresses.length > 0" 
-      class="w-1/4 mt-10"
-      [items]="marketplaceAddresses"
-      (change)="addressChange($event)">
-    </ng-select>
   </div>
 </div>
