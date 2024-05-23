@@ -20,14 +20,14 @@ export class Web3Service {
   initSubscriptionContract(address: string) {
     this.subscriptionContract = new this.web3.eth.Contract(
       environment.ABI_SUBSCRIPTION,
-      address,
+      address
     );
   }
 
   initMarketplaceContract() {
     this.marketplaceContract = new this.web3.eth.Contract(
       environment.ABI_MARKETPLACE,
-      '0xd659cbC22d4e22f0ed2234F7E87920EC06891DeC', // Move this
+      environment.MARKETPLACE_AMOY_ADDRESS
     );
   }
 

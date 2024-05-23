@@ -976,11 +976,14 @@ const ABI_MARKETPLACE_AMOY = [
   },
 ];
 
+const MARKETPLACE_AMOY_ADDRESS = '0xd659cbC22d4e22f0ed2234F7E87920EC06891DeC';
+
 const PINATA_PIN_LIST_URL = 'https://api.pinata.cloud/data/pinList';
 
 export const commonEnvironment = {
   ABI_SUBSCRIPTION: ABI_SUBSCRIPTION_AMOY,
   ABI_MARKETPLACE: ABI_MARKETPLACE_AMOY,
+  MARKETPLACE_AMOY_ADDRESS,
   PINATA_PIN_LIST_URL,
   metadata: {
     name: 'DappHomes',

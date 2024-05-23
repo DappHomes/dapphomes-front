@@ -10,9 +10,7 @@ const ethereum = {
   rpcUrl: 'https://cloudflare-eth.com',
 };
 
-const chains = [
-  ethereum,
-];
+const chains = [ethereum];
 
 const ethersConfig = defaultConfig({
   metadata: commonEnvironment.metadata,
@@ -32,6 +30,7 @@ export const environment = {
   web3ModalConfig,
   ABI_SUBSCRIPTION: commonEnvironment.ABI_SUBSCRIPTION,
   ABI_MARKETPLACE: commonEnvironment.ABI_MARKETPLACE,
+  MARKETPLACE_AMOY_ADDRESS: commonEnvironment.MARKETPLACE_AMOY_ADDRESS,
   PINATA_PIN_LIST_URL: commonEnvironment.PINATA_PIN_LIST_URL,
   IPFS_BASE_URL: import.meta.env.NG_APP_IPFS_BASE_URL,
   PINATA_PIN_LIST_TOKEN: import.meta.env.NG_APP_PINATA_PIN_LIST_TOKEN,
