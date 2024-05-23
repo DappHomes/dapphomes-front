@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   marketplaceAddresses: Address[] = [];
   selectedAddress!: Address;
   isConnectingDisplayed = false;
-  isValidAddress = false;
+  isAddress = false;
   listToken: string = '';
   rawData: any;
   chart!: Chart;
@@ -37,8 +37,8 @@ export class DashboardComponent implements OnInit {
   }
 
   submitAddress() {
-    this.isValidAddress = this.web3Service.checkAddress(this.selectedAddress);
-    if (this.isValidAddress) {
+    this.isAddress = this.web3Service.isAddress(this.selectedAddress);
+    if (this.isAddress) {
       this.isConnectingDisplayed = true;
       this.web3Service.initSubscriptionContract(this.selectedAddress);
 

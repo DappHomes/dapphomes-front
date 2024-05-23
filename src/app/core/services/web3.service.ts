@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import Web3, { Address, Numbers } from 'web3';
-import { validator } from 'web3-validator';
 import { Web3ModalService } from '@services/web3modal.service';
 import { environment } from '@env/environment';
+import { isAddress as isValidAddress } from 'web3-validator';
 
 @Injectable({ providedIn: 'root' })
 export class Web3Service {
   private web3!: Web3;
-
   private subscriptionContract!: any;
-
   private marketplaceContract!: any;
 
   constructor(private web3ModalService: Web3ModalService) {
@@ -31,13 +29,8 @@ export class Web3Service {
     );
   }
 
-  checkAddress(address: string): boolean {
-    try {
-      validator.validate(['address'], [address]);
-      return true;
-    } catch (err) {
-      return false;
-    }
+  isAddress(address: string): boolean {
+    return isValidAddress(address);
   }
 
   getEtherConversion(value: Numbers) {
@@ -48,14 +41,8 @@ export class Web3Service {
     return this.subscriptionContract.methods.price().call();
   }
 
-  async listToken(): Promise<string> {
-    return this.subscriptionContract.methods.listToken().call();
-  }
-
   async getListToken() {
-    // Check if it's the same as listToken.
-    const token = await this.subscriptionContract.methods.listToken().call();
-    return token;
+    return this.subscriptionContract.methods.listToken().call();
   }
 
   async getMarketplaces(): Promise<Address[]> {
