@@ -5,6 +5,7 @@ import { Web3Service } from '@services/web3.service';
 import { ERRORS } from '@utils/messages';
 import { Address } from 'web3';
 import { Chart, ChartType, registerables } from 'chart.js';
+import { MESSAGES } from '../../utils/messages';
 
 @Component({
   selector: 'dashboard',
@@ -19,6 +20,8 @@ export class DashboardComponent implements OnInit {
   isAddress = false;
   rawData: any;
   chart!: Chart;
+
+  readonly DASHBOARD_MSG = MESSAGES.DASHBOARD;
 
   constructor(
     private pinataService: PinataService,

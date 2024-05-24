@@ -1,9 +1,8 @@
-<div *ngIf="isDashboardVisible">
-  <br />
+<div class="mt-10" *ngIf="isDashboardVisible">
   <h1
     class="text-center mb-4 text-4xl font-sans leading-none tracking-tight md:text-5xl lg:text-6xl dark:text-white"
   >
-    Which house do you want to connect to?
+    {{ DASHBOARD_MSG.WHICH_HOUSE }}
   </h1>
   <div
     *ngIf="marketplaceAddresses.length > 0"
@@ -11,7 +10,6 @@
   >
     <div class="mr-2 w-1/4">
       <ng-select
-        class=""
         [items]="marketplaceAddresses"
         (change)="addressChange($event)"
       >
@@ -28,7 +26,7 @@
       }"
       (click)="submitAddress()"
     >
-      Submit
+      {{ DASHBOARD_MSG.SUBMIT }}
     </button>
   </div>
   <div *ngIf="isAddress" class="center">
@@ -36,7 +34,7 @@
       *ngIf="isConnectingDisplayed"
       class="flex justify-center items-center mb-10 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
     >
-      <p>Connecting to... {{ selectedAddress }}</p>
+      <p>{{ DASHBOARD_MSG.CONNECTING }} {{ selectedAddress }}</p>
     </div>
 
     <div [hidden]="!rawData" class="center chart">
@@ -47,9 +45,9 @@
       *ngIf="rawData"
       class="mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
     >
-      <h3 class="mt-20">You are subscribed! :)</h3>
+      <h3 class="mt-20">{{ DASHBOARD_MSG.SUBSCRIBEED }}</h3>
       <br />
-      <h2>This is the last message from {{ selectedAddress }}:</h2>
+      <h2>{{ DASHBOARD_MSG.MESSAGE_FROM }} {{ selectedAddress }}:</h2>
       <pre>{{ rawData | json }}</pre>
     </div>
   </div>
