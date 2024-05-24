@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
   selectedAddress!: Address;
   isConnectingDisplayed = false;
   isAddress = false;
-  listToken: string = '';
   rawData: any;
   chart!: Chart;
 
@@ -42,29 +41,27 @@ export class DashboardComponent implements OnInit {
       this.isConnectingDisplayed = true;
       this.web3Service.initSubscriptionContract(this.selectedAddress);
 
-      // 2. get pinata token
-      this.web3Service.getListToken().then((value: string) => {
-        this.listToken = value;
-
-        // 3. try to decrypt data
-        this.pinataService
-          .getData(this.listToken)
-          .then((response) => {
-            this.isConnectingDisplayed = false;
-            this.rawData = JSON.parse(response);
-            this.createChart();
-          })
-          .catch((error) => {
-            if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {
-              this.router.navigate(['/not-subscribed']);
-            }
-          });
-      });
+      this.decryptMessage()
+        .then((response) => {
+          this.isConnectingDisplayed = false;
+          this.rawData = JSON.parse(response);
+          this.createChart();
+        })
+        .catch((error) => {
+          if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {
+            this.router.navigate(['/not-subscribed']);
+          }
+        });
     }
   }
 
   addressChange(address: Address) {
     this.selectedAddress = address;
+  }
+
+  private async decryptMessage() {
+    const tokenList = await this.web3Service.getListToken();
+    return this.pinataService.decryptMessage(tokenList);
   }
 
   private createChart() {

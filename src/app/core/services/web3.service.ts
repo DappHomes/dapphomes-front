@@ -19,14 +19,14 @@ export class Web3Service {
     this.subscriptionContract = new this.web3.eth.Contract(
       environment.ABI_SUBSCRIPTION,
       address
-    );
+    ).methods;
   }
 
   initMarketplaceContract() {
     this.marketplaceContract = new this.web3.eth.Contract(
       environment.ABI_MARKETPLACE,
       environment.MARKETPLACE_AMOY_ADDRESS
-    );
+    ).methods;
   }
 
   isAddress(address: string): boolean {
@@ -38,15 +38,15 @@ export class Web3Service {
   }
 
   async getPrice(): Promise<Numbers> {
-    return this.subscriptionContract.methods.price().call();
+    return this.subscriptionContract.price().call();
   }
 
   async getListToken() {
-    return this.subscriptionContract.methods.listToken().call();
+    return this.subscriptionContract.listToken().call();
   }
 
   async getMarketplaces(): Promise<Address[]> {
-    return this.marketplaceContract.methods.getMarketplaces().call();
+    return this.marketplaceContract.getMarketplaces().call();
   }
 
   async doSubscription() {
@@ -56,7 +56,7 @@ export class Web3Service {
       gas: 3000000,
       value,
     };
-    return this.subscriptionContract.methods.subscribe().send(tx);
+    return this.subscriptionContract.subscribe().send(tx);
   }
 
   async getEtherSubscriptionPrice() {

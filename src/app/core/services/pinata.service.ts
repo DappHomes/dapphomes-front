@@ -1,31 +1,38 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import {
-  ThresholdMessageKit, decrypt, domains, getPorterUri, fromBytes,
+  ThresholdMessageKit,
+  decrypt,
+  domains,
+  getPorterUri,
+  fromBytes,
 } from '@nucypher/taco';
 import { ethers } from 'ethers';
 
 @Injectable({ providedIn: 'root' })
 export class PinataService {
-  async getData(token: string) {
-    const options = { method: 'GET', headers: { Authorization: `Bearer ${token}` } };
-    const result = await fetch(environment.PINATA_PIN_LIST_URL, options);
-    const data = await result.json();
-    const lastPinnedFile = data.rows[0].ipfs_pin_hash;
-    const pifsResult = await fetch(environment.IPFS_BASE_URL + lastPinnedFile);
-    const resp = Buffer.from(await pifsResult.arrayBuffer());
-    return this.decryptFromBytes(resp);
+  async decryptMessage(token: string) {
+    const lastPinnedFiles = await this.getLastPinnedFiles(token);
+    const response = Buffer.from(await lastPinnedFiles.arrayBuffer());
+    return this.decryptFromBytes(response);
   }
 
-  async getPinList(token: string) {
-    const options = { method: 'GET', headers: { Authorization: `Bearer ${token}` } };
+  private async getLastPinnedFiles(token: string) {
+    const options = {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const result = await fetch(environment.PINATA_PIN_LIST_URL, options);
     const data = await result.json();
-    return data.rows;
+    const { ipfs_pin_hash } = data.rows[0];
+    return await fetch(`${environment.IPFS_BASE_URL}${ipfs_pin_hash}`);
   }
 
   private async decryptFromBytes(encryptedBytes: Uint8Array) {
-    const browserProvider = new ethers.providers.Web3Provider((window as any).ethereum, 'any');
+    const browserProvider = new ethers.providers.Web3Provider(
+      (window as any).ethereum,
+      'any'
+    );
 
     const network = await browserProvider.getNetwork();
     if (network.chainId !== 80002) {
@@ -44,7 +51,7 @@ export class PinataService {
       domains.TESTNET,
       messageKit,
       getPorterUri(domains.TESTNET),
-      browserProvider.getSigner(),
+      browserProvider.getSigner()
     );
 
     return fromBytes(decryptedBytes);
