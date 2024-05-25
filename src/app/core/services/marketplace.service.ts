@@ -14,7 +14,7 @@ export class MarketplaceService {
   initMarketplaceContract() {
     this.marketplaceContract = this.web3Service.getMethods(
       environment.ABI_MARKETPLACE,
-      environment.MARKETPLACE_AMOY_ADDRESS
+      environment.MARKETPLACE_ADDRESS
     );
   }
 
