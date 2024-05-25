@@ -22,7 +22,7 @@ const chains = [amoy, sepolia];
 
 const ethersConfig = defaultConfig({
   metadata: commonEnvironment.metadata,
-  defaultChainId: chains[1].chainId,
+  defaultChainId: chains[0].chainId,
 });
 
 const web3ModalConfig = {

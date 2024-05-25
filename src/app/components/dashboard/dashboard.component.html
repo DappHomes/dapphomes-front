@@ -37,9 +37,7 @@
       <p>{{ DASHBOARD_MSG.CONNECTING }} {{ selectedAddress }}</p>
     </div>
 
-    <div [hidden]="!rawData" class="center chart">
-      <canvas id="chart"></canvas>
-    </div>
+    <line-chart-type *ngIf="rawData" [sensorsData]="rawData"></line-chart-type>
 
     <div
       *ngIf="rawData"

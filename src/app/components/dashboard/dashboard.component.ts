@@ -4,7 +4,6 @@ import { PinataService } from '@services/pinata.service';
 import { Web3Service } from '@services/web3.service';
 import { ERRORS } from '@utils/messages';
 import { Address } from 'web3';
-import { Chart, ChartType, registerables } from 'chart.js';
 import { MESSAGES } from '../../utils/messages';
 
 @Component({
@@ -18,8 +17,7 @@ export class DashboardComponent implements OnInit {
   selectedAddress!: Address;
   isConnectingDisplayed = false;
   isAddress = false;
-  rawData: any;
-  chart!: Chart;
+  rawData = null;
 
   readonly DASHBOARD_MSG = MESSAGES.DASHBOARD;
 
@@ -27,15 +25,11 @@ export class DashboardComponent implements OnInit {
     private pinataService: PinataService,
     private web3Service: Web3Service,
     private router: Router
-  ) {
-    Chart.register(...registerables);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.isDashboardVisible = true;
-    this.web3Service.getMarketplaces().then((addresses) => {
-      this.marketplaceAddresses.push(...addresses);
-    });
+    this.setMarketplaces();
   }
 
   submitAddress() {
@@ -43,18 +37,7 @@ export class DashboardComponent implements OnInit {
     if (this.isAddress) {
       this.isConnectingDisplayed = true;
       this.web3Service.initSubscriptionContract(this.selectedAddress);
-
-      this.decryptMessage()
-        .then((response) => {
-          this.isConnectingDisplayed = false;
-          this.rawData = JSON.parse(response);
-          this.createChart();
-        })
-        .catch((error) => {
-          if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {
-            this.router.navigate(['/not-subscribed']);
-          }
-        });
+      this.setSensorsData();
     }
   }
 
@@ -67,48 +50,22 @@ export class DashboardComponent implements OnInit {
     return this.pinataService.decryptMessage(tokenList);
   }
 
-  private createChart() {
-    const {
-      main: { temp, feels_like, temp_min, temp_max, humidity },
-      wind: { speed },
-      name,
-    } = this.rawData;
-    const data = {
-      labels: [
-        'Temp',
-        'Feels like',
-        'Temp min',
-        'Temp max',
-        'Humidity',
-        'Wind Speed',
-      ],
-      datasets: [
-        {
-          label: `Place ${name}`,
-          data: [temp, feels_like, temp_min, temp_max, humidity, speed],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1,
-        },
-      ],
-    };
-    const options = {
-      scales: {
-        x: {
-          suggestedMin: 0,
-          suggestedMax: 60,
-        },
-        y: {
-          suggestedMin: 0,
-          suggestedMax: 60,
-        },
-      },
-    };
-
-    this.chart = new Chart('chart', {
-      type: 'line' as ChartType,
-      data,
-      options,
+  private setMarketplaces() {
+    this.web3Service.getMarketplaces().then((addresses) => {
+      this.marketplaceAddresses.push(...addresses);
     });
+  }
+
+  private setSensorsData() {
+    this.decryptMessage()
+      .then((response) => {
+        this.isConnectingDisplayed = false;
+        this.rawData = JSON.parse(response);
+      })
+      .catch((error) => {
+        if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {
+          this.router.navigate(['/not-subscribed']);
+        }
+      });
   }
 }
