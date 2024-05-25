@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PinataService } from '@services/pinata.service';
-import { Web3Service } from '@services/web3.service';
+import { SubscriptionService } from '@services/subscription.service';
 import { ERRORS } from '@utils/messages';
 import { Address } from 'web3';
 import { MESSAGES } from '../../utils/messages';
+import { MarketplaceService } from '@services/marketplace.service';
+import { Web3Service } from '../../core/services/web3.service';
 
 @Component({
   selector: 'dashboard',
@@ -22,8 +24,10 @@ export class DashboardComponent implements OnInit {
   readonly DASHBOARD_MSG = MESSAGES.DASHBOARD;
 
   constructor(
-    private pinataService: PinataService,
     private web3Service: Web3Service,
+    private pinataService: PinataService,
+    private subscriptionService: SubscriptionService,
+    private marketplaceService: MarketplaceService,
     private router: Router
   ) {}
 
@@ -36,7 +40,7 @@ export class DashboardComponent implements OnInit {
     this.isAddress = this.web3Service.isAddress(this.selectedAddress);
     if (this.isAddress) {
       this.isConnectingDisplayed = true;
-      this.web3Service.initSubscriptionContract(this.selectedAddress);
+      this.subscriptionService.initSubscriptionContract(this.selectedAddress);
       this.setSensorsData();
     }
   }
@@ -46,12 +50,12 @@ export class DashboardComponent implements OnInit {
   }
 
   private async decryptMessage() {
-    const tokenList = await this.web3Service.getListToken();
+    const tokenList = await this.subscriptionService.getListToken();
     return this.pinataService.decryptMessage(tokenList);
   }
 
   private setMarketplaces() {
-    this.web3Service.getMarketplaces().then((addresses) => {
+    this.marketplaceService.getMarketplaces().then((addresses) => {
       this.marketplaceAddresses.push(...addresses);
     });
   }

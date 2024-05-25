@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Web3Service } from '../../core/services/web3.service';
+import { SubscriptionService } from '../../core/services/subscription.service';
 import { MESSAGES } from '../../utils/messages';
 
 @Component({
@@ -8,25 +8,31 @@ import { MESSAGES } from '../../utils/messages';
   templateUrl: './not-subscribed.component.html',
   styleUrls: ['not-subscribed.component.scss'],
 })
-
 export class NotSubscribedComponent implements OnInit {
   readonly MESSAGES = MESSAGES.NOT_SUBSCRIBED;
 
   etherSubscriptionPrice!: string;
 
-  constructor(private web3Service: Web3Service, private router: Router) {}
+  constructor(
+    private subscriptionService: SubscriptionService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getPrice();
   }
 
   subscribe() {
-    this.web3Service.doSubscription().then(() => this.router.navigate(['/dashboard']));
+    this.subscriptionService
+      .doSubscription()
+      .then(() => this.router.navigate(['/dashboard']));
   }
 
   private getPrice() {
-    this.web3Service.getEtherSubscriptionPrice().then((value: string) => {
-      this.etherSubscriptionPrice = value;
-    });
+    this.subscriptionService
+      .getEtherSubscriptionPrice()
+      .then((value: string) => {
+        this.etherSubscriptionPrice = value;
+      });
   }
 }
