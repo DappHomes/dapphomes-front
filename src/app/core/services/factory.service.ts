@@ -9,7 +9,7 @@ export class FactoryService {
 
   constructor(private web3Service: Web3Service) {}
 
-  initSubscriptionContract() {
+  initFactoryContract() {
     this.factoryContract = this.web3Service.getMethods(
       environment.ABI_FACTORY,
       environment.FACTORY_ADDRESS
