@@ -1,5 +1,5 @@
 import { ThemeMode } from '@web3modal/core';
-import { defaultConfig } from '@web3modal/ethers5';
+import { Web3ModalOptions, defaultConfig } from '@web3modal/ethers5';
 import { commonEnvironment } from './environment.common';
 
 const sepolia = {
@@ -25,7 +25,7 @@ const ethersConfig = defaultConfig({
   defaultChainId: chains[0].chainId,
 });
 
-const web3ModalConfig = {
+const web3ModalConfig: Web3ModalOptions = {
   themeMode: 'dark' as ThemeMode,
   ethersConfig,
   chains,
