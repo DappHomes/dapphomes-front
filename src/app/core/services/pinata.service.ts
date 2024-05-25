@@ -8,9 +8,12 @@ import {
   fromBytes,
 } from '@nucypher/taco';
 import { ethers } from 'ethers';
+import { Web3ModalService } from './web3modal.service';
 
 @Injectable({ providedIn: 'root' })
 export class PinataService {
+  constructor(private web3ModalService: Web3ModalService) {}
+
   async decryptMessage(token: string) {
     const lastPinnedFiles = await this.getLastPinnedFiles(token);
     const response = Buffer.from(await lastPinnedFiles.arrayBuffer());
@@ -25,7 +28,7 @@ export class PinataService {
     const result = await fetch(environment.PINATA_PIN_LIST_URL, options);
     const data = await result.json();
     const { ipfs_pin_hash } = data.rows[0];
-    return await fetch(`${environment.IPFS_BASE_URL}${ipfs_pin_hash}`);
+    return fetch(`${environment.IPFS_BASE_URL}${ipfs_pin_hash}`);
   }
 
   private async decryptFromBytes(encryptedBytes: Uint8Array) {
@@ -34,8 +37,9 @@ export class PinataService {
       'any'
     );
 
-    const network = await browserProvider.getNetwork();
-    if (network.chainId !== 80002) {
+    const selectedChainId = this.web3ModalService.getChainId();
+    const { chainId: amoyChanId } = this.getAmoyChain();
+    if (selectedChainId !== amoyChanId) {
       console.log('Not in Amoy network. Lets change...');
       await (window as any).ethereum.request({
         method: 'wallet_switchEthereumChain',
@@ -55,5 +59,9 @@ export class PinataService {
     );
 
     return fromBytes(decryptedBytes);
+  }
+
+  private getAmoyChain() {
+    return environment.web3ModalConfig.chains[0];
   }
 }

@@ -30,4 +30,12 @@ export class Web3ModalService {
     const provider = this.getWalletProvider();
     return provider?.on('accountsChanged', callback);
   }
+
+  getChainId() {
+    return this.web3Modal.getChainId();
+  }
+
+  async switchNetwork(chainId: number) {
+    return this.web3Modal.switchNetwork(chainId);
+  }
 }
