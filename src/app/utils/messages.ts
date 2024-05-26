@@ -11,6 +11,19 @@ export const MESSAGES = {
     CONNECTING: 'Connecting to...',
     SUBSCRIBEED: 'You are subscribed! :)',
     MESSAGE_FROM: 'This is the last message from',
+    CREATE_MARKETPLACE: 'Create marketplace',
+  },
+  ADD_MARKETPLACE: {
+    PRICE: 'Price',
+    DURATION: 'Duration',
+    PINATA: 'Pinata token',
+    PLACEHOLDER: {
+      PRICE: 'Price in Wei',
+      DURATION: 'Duration timestamp',
+      TOKEN: 'Token',
+    },
+    NO_THANKS: 'No Thanks',
+    OK: 'Ok',
   },
 };
 

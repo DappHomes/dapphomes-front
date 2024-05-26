@@ -1,0 +1,56 @@
+<div
+  class="flex flex-col items-center bg-white add-marketplace rounded-lg p-10"
+>
+  <h1 class="text-4xl text-center text-gray-900">Add marketplace</h1>
+  <div class="flex flex-col add-marketplace__inputs mt-5">
+    <div>
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >{{ MARKETPLACE_MSG.PRICE }}</label
+      >
+      <input
+        type="text"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        [placeholder]="MARKETPLACE_PLACEHOLDER.PRICE"
+        [(ngModel)]="marketplace.price"
+      />
+    </div>
+    <div>
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >{{ MARKETPLACE_MSG.DURATION }}</label
+      >
+      <input
+        type="text"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        [placeholder]="MARKETPLACE_PLACEHOLDER.DURATION"
+        [(ngModel)]="marketplace.duration"
+      />
+    </div>
+    <div>
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >{{ MARKETPLACE_MSG.PINATA }}</label
+      >
+      <input
+        type="text"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        [placeholder]="MARKETPLACE_PLACEHOLDER.TOKEN"
+        [(ngModel)]="marketplace.token"
+      />
+    </div>
+    <div class="add-marketplace__action-btn" mat-dialog-actions>
+      <button class="text-black" mat-button (click)="onNoClick()">
+        {{ MARKETPLACE_MSG.NO_THANKS }}
+      </button>
+      <button
+        class="text-black"
+        mat-button
+        [mat-dialog-close]="marketplace"
+        cdkFocusInitial
+      >
+        {{ MARKETPLACE_MSG.OK }}
+      </button>
+    </div>
+  </div>
+</div>

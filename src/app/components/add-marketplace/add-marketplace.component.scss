@@ -1,0 +1,14 @@
+.add-marketplace {
+  height: 500px;
+  width: 600px;
+
+  &__inputs {
+    flex: 1;
+    width: 450px;
+  }
+
+  &__inputs,
+  &__action-btn {
+    justify-content: space-around;
+  }
+}

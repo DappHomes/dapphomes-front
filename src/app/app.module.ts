@@ -9,6 +9,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LineChartComponent } from '@components/charts/line-chart/line-chart.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddMarketplaceComponent } from '@components/add-marketplace/add-marketplace.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +19,15 @@ import { LineChartComponent } from '@components/charts/line-chart/line-chart.com
     DashboardComponent,
     NotSubscribedComponent,
     LineChartComponent,
+    AddMarketplaceComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, NgSelectModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    NgSelectModule,
+    MatDialogModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

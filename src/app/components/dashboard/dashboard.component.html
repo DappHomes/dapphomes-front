@@ -1,6 +1,12 @@
 <div *ngIf="isDashboardVisible">
-  <div class="flex justify-end">
-    <w3m-button class="mt-5 mb-10 mr-5"></w3m-button>
+  <div class="mt-5 mb-10 flex items-center justify-end">
+    <button
+      class="mr-8 bg-transparent text-white font-semibold hover:text-white py-2 px-4 rounded border border-white"
+      (click)="openCreateMarketplaceModal()"
+    >
+      {{ DASHBOARD_MSG.CREATE_MARKETPLACE }}
+    </button>
+    <w3m-button class="mr-5"></w3m-button>
   </div>
   <h1
     class="text-center mb-4 text-4xl font-sans leading-none tracking-tight md:text-5xl lg:text-6xl dark:text-white"
