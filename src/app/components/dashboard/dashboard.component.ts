@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
       }
       const { token, price, duration } = marketplace;
       if (!token || !price || !duration) {
-        this.wrongMarketplace();
+        this.wrongMarketplace('Missing fields');
         return;
       }
       const wei = this.web3Service.getWeiConversion(price);
@@ -83,6 +83,7 @@ export class DashboardComponent implements OnInit {
       })
       .catch((error) => {
         console.error(error);
+        this.wrongMarketplace('Error creating marketplace');
       });
   }
 
@@ -110,8 +111,8 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  private wrongMarketplace() {
-    this.snackBar.open('Missing fields', '', {
+  private wrongMarketplace(message: string) {
+    this.snackBar.open(message, '', {
       duration: 2000,
       panelClass: ['wrong-marketplace'],
     });
