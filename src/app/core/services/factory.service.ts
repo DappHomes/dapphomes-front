@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Web3Service } from './web3.service';
-import { Uint256 } from 'web3';
 
 @Injectable({ providedIn: 'root' })
 export class FactoryService {
