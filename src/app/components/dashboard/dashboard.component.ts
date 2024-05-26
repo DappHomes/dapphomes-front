@@ -70,7 +70,8 @@ export class DashboardComponent implements OnInit {
         this.wrongMarketplace();
         return;
       }
-      this.createMarketplace(price, duration, token);
+      const wei = this.web3Service.getWeiConversion(price);
+      this.createMarketplace(wei, duration, token);
     });
   }
 

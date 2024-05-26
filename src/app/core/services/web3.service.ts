@@ -23,6 +23,10 @@ export class Web3Service {
     return this.contract.utils.fromWei(value, 'ether');
   }
 
+  getWeiConversion(value: Numbers) {
+    return this.contract.utils.toWei(value, 'ether');
+  }
+
   private initWeb3() {
     const provider = this.web3ModalService.getWalletProvider();
     this.contract = new Web3(provider);

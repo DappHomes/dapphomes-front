@@ -18,8 +18,8 @@ export const MESSAGES = {
     DURATION: 'Duration',
     PINATA: 'Pinata token',
     PLACEHOLDER: {
-      PRICE: 'Price in Wei',
-      DURATION: 'Duration timestamp',
+      PRICE: 'Price in Ether',
+      DURATION: 'Number of days',
       TOKEN: 'Token',
     },
     NO_THANKS: 'No Thanks',
