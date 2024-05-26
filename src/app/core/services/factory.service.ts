@@ -17,8 +17,8 @@ export class FactoryService {
   }
 
   async createMarketplace(
-    price: Uint256,
-    duration: Uint256,
+    price: string,
+    duration: string,
     token: string
   ): Promise<any> {
     return this.factoryContract
