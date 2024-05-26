@@ -11,6 +11,7 @@ import { FactoryService } from '@services/factory.service';
 import { AddMarketplaceComponent } from '@components/add-marketplace/add-marketplace.component';
 import { Marketplace } from '@utils/utils';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'dashboard',
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
     private marketplaceService: MarketplaceService,
     private factoryService: FactoryService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private router: Router
   ) {}
 
@@ -64,9 +66,11 @@ export class DashboardComponent implements OnInit {
         return;
       }
       const { token, price, duration } = marketplace;
-      if (token && price && duration) {
-        this.createMarketplace(price, duration, token);
+      if (!token || !price || !duration) {
+        this.wrongMarketplace();
+        return;
       }
+      this.createMarketplace(price, duration, token);
     });
   }
 
@@ -103,5 +107,12 @@ export class DashboardComponent implements OnInit {
           this.router.navigate(['/not-subscribed']);
         }
       });
+  }
+
+  private wrongMarketplace() {
+    this.snackBar.open('Missing fields', '', {
+      duration: 2000,
+      panelClass: ['wrong-marketplace'],
+    });
   }
 }

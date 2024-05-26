@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { LineChartComponent } from '@components/charts/line-chart/line-chart.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddMarketplaceComponent } from '@components/add-marketplace/add-marketplace.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { AddMarketplaceComponent } from '@components/add-marketplace/add-marketp
     FormsModule,
     NgSelectModule,
     MatDialogModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

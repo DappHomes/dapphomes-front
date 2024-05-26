@@ -2,3 +2,9 @@
   height: 800px;
   width: 1600px;
 }
+
+::ng-deep .wrong-marketplace {
+  --mdc-snackbar-container-color: #ff0f0f;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
