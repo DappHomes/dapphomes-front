@@ -93,7 +93,8 @@ export class DashboardComponent implements OnInit {
   }
 
   private setMarketplaces() {
-    this.marketplaceService.getMarketplaces().then((addresses) => {
+    this.factoryService.initFactoryContract();
+    this.factoryService.getMarketplaces().then((addresses) => {
       this.marketplaceAddresses.push(...addresses);
     });
   }
