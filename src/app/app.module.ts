@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AddMarketplaceComponent } from '@components/add-marketplace/add-marketplace.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateMarketplaceComponent } from '@components/create-marketplace/create-marketplace.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NotSubscribedComponent,
     LineChartComponent,
     AddMarketplaceComponent,
+    CreateMarketplaceComponent,
   ],
   imports: [
     BrowserModule,

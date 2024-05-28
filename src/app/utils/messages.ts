@@ -11,8 +11,8 @@ export const MESSAGES = {
     CONNECTING: 'Connecting to...',
     SUBSCRIBEED: 'You are subscribed! :)',
     MESSAGE_FROM: 'This is the last message from',
-    CREATE_MARKETPLACE: 'Create marketplace',
   },
+  CREATE_MARKETPLACE: 'Create marketplace',
   ADD_MARKETPLACE: {
     PRICE: 'Price',
     DURATION: 'Duration',

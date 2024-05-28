@@ -5,13 +5,8 @@ import { SubscriptionService } from '@services/subscription.service';
 import { ERRORS } from '@utils/messages';
 import { Address } from 'web3';
 import { MESSAGES } from '../../utils/messages';
-import { MarketplaceService } from '@services/marketplace.service';
 import { Web3Service } from '../../core/services/web3.service';
 import { FactoryService } from '@services/factory.service';
-import { AddMarketplaceComponent } from '@components/add-marketplace/add-marketplace.component';
-import { Marketplace } from '@utils/utils';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'dashboard',
@@ -32,17 +27,13 @@ export class DashboardComponent implements OnInit {
     private web3Service: Web3Service,
     private pinataService: PinataService,
     private subscriptionService: SubscriptionService,
-    private marketplaceService: MarketplaceService,
     private factoryService: FactoryService,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.isDashboardVisible = true;
     this.setMarketplaces();
-    this.factoryService.initFactoryContract();
   }
 
   submitAddress() {
@@ -56,35 +47,6 @@ export class DashboardComponent implements OnInit {
 
   addressChange(address: Address) {
     this.selectedAddress = address;
-  }
-
-  openCreateMarketplaceModal() {
-    const dialogRef = this.dialog.open(AddMarketplaceComponent);
-
-    dialogRef.afterClosed().subscribe((marketplace: Marketplace) => {
-      if (!marketplace) {
-        return;
-      }
-      const { token, price, duration } = marketplace;
-      if (!token || !price || !duration) {
-        this.wrongMarketplace('Missing fields');
-        return;
-      }
-      const wei = this.web3Service.getWeiConversion(price);
-      this.createMarketplace(wei, duration, token);
-    });
-  }
-
-  private createMarketplace(price: string, duration: string, token: string) {
-    this.factoryService
-      .createMarketplace(price, duration, token)
-      .then((algo) => {
-        console.log(algo);
-      })
-      .catch((error) => {
-        console.error(error);
-        this.wrongMarketplace('Error creating marketplace');
-      });
   }
 
   private async decryptMessage() {
@@ -110,12 +72,5 @@ export class DashboardComponent implements OnInit {
           this.router.navigate(['/not-subscribed']);
         }
       });
-  }
-
-  private wrongMarketplace(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000,
-      panelClass: ['wrong-marketplace'],
-    });
   }
 }
