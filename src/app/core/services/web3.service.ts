@@ -27,6 +27,11 @@ export class Web3Service {
     return this.contract.utils.toWei(value, 'ether');
   }
 
+  async getSigner() {
+    const accounts = await this.contract.eth.getAccounts();
+    return accounts[0];
+  }
+
   private initWeb3() {
     const provider = this.web3ModalService.getWalletProvider();
     this.contract = new Web3(provider);
