@@ -68,6 +68,7 @@ export class DashboardComponent implements OnInit {
         this.rawData = JSON.parse(response);
       })
       .catch((error) => {
+        console.error(error);
         if (error.message.includes(ERRORS.DECRYPTION_FAILED)) {
           this.router.navigate(['/not-subscribed']);
         }
