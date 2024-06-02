@@ -21,10 +21,9 @@ export class FactoryService {
     duration: string,
     token: string
   ): Promise<any> {
-    return this.factoryContract.createMarketplace(price, duration, token)
-      .send({
-        from: await this.web3Service.getSigner()
-      });
+    return this.factoryContract.createMarketplace(price, duration, token).send({
+      from: await this.web3Service.getSigner(),
+    });
   }
 
   async getMarketplaces(): Promise<Address[]> {
