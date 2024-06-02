@@ -12,6 +12,7 @@ export class NotSubscribedComponent implements OnInit {
   readonly MESSAGES = MESSAGES.NOT_SUBSCRIBED;
 
   etherSubscriptionPrice!: string;
+  isGoDashboardVisible = false;
 
   constructor(
     private subscriptionService: SubscriptionService,
@@ -23,9 +24,11 @@ export class NotSubscribedComponent implements OnInit {
   }
 
   subscribe() {
-    this.subscriptionService
-      .doSubscription()
-      .then(() => this.router.navigate(['/dashboard']));
+    this.subscriptionService.doSubscription().then(() => this.goToDashboard());
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
   private getPrice() {
@@ -33,6 +36,10 @@ export class NotSubscribedComponent implements OnInit {
       .getEtherSubscriptionPrice()
       .then((value: string) => {
         this.etherSubscriptionPrice = value;
+      })
+      .catch((error) => {
+        console.error(error);
+        this.isGoDashboardVisible = true;
       });
   }
 }
