@@ -14,6 +14,7 @@ import { AddMarketplaceComponent } from '@components/add-marketplace/add-marketp
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateMarketplaceComponent } from '@components/create-marketplace/create-marketplace.component';
+import { RawDataComponent } from '@components/raw-data/raw-data.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CreateMarketplaceComponent } from '@components/create-marketplace/creat
     LineChartComponent,
     AddMarketplaceComponent,
     CreateMarketplaceComponent,
+    RawDataComponent,
   ],
   imports: [
     BrowserModule,

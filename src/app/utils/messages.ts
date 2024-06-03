@@ -10,7 +10,10 @@ export const MESSAGES = {
     WHICH_HOUSE: 'Which house do you want to connect to?',
     SUBMIT: 'Submit',
     CONNECTING: 'Connecting to...',
-    SUBSCRIBEED: 'You are subscribed! :)',
+    PREVIEW: 'Preview raw data',
+  },
+  RAW_DATA: {
+    SUBSCRIBED: 'You are subscribed! :)',
     MESSAGE_FROM: 'This is the last message from',
   },
   CREATE_MARKETPLACE: 'Create marketplace',

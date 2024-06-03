@@ -1,0 +1,8 @@
+<div
+  class="mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
+>
+  <h3 class="mt-20">{{ RAW_DATA_MSG.SUBSCRIBED }}</h3>
+  <br />
+  <h2>{{ RAW_DATA_MSG.MESSAGE_FROM }} {{ data.selectedAddress }}:</h2>
+  <pre>{{ data.rawData | json }}</pre>
+</div>

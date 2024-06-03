@@ -7,6 +7,8 @@ import { Address } from 'web3';
 import { MESSAGES } from '../../utils/messages';
 import { Web3Service } from '../../core/services/web3.service';
 import { FactoryService } from '@services/factory.service';
+import { RawDataComponent } from '@components/raw-data/raw-data.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'dashboard',
@@ -24,10 +26,11 @@ export class DashboardComponent implements OnInit {
   readonly DASHBOARD_MSG = MESSAGES.DASHBOARD;
 
   constructor(
-    private web3Service: Web3Service,
-    private pinataService: PinataService,
     private subscriptionService: SubscriptionService,
     private factoryService: FactoryService,
+    private pinataService: PinataService,
+    private web3Service: Web3Service,
+    private dialog: MatDialog,
     private router: Router
   ) {}
 
@@ -47,6 +50,14 @@ export class DashboardComponent implements OnInit {
 
   addressChange(address: Address) {
     this.selectedAddress = address;
+  }
+
+  openRawDataModal() {
+    this.dialog.open(RawDataComponent, {
+      width: '1200px',
+      height: '1200px',
+      data: { rawData: this.rawData, selectedAddress: this.selectedAddress },
+    });
   }
 
   private async decryptMessage() {

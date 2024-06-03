@@ -33,7 +33,7 @@
       {{ DASHBOARD_MSG.SUBMIT }}
     </button>
   </div>
-  <div *ngIf="isAddress" class="center">
+  <div *ngIf="isAddress" class="flex flex-col items-center">
     <div
       *ngIf="isConnectingDisplayed"
       class="flex justify-center items-center mb-10 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
@@ -41,16 +41,15 @@
       <p>{{ DASHBOARD_MSG.CONNECTING }} {{ selectedAddress }}</p>
     </div>
 
-    <line-chart-type *ngIf="rawData" [sensorsData]="rawData"></line-chart-type>
+    <ng-container *ngIf="rawData">
+      <line-chart-type class="chart" [sensorsData]="rawData"></line-chart-type>
 
-    <div
-      *ngIf="rawData"
-      class="mb-6 mx-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
-    >
-      <h3 class="mt-20">{{ DASHBOARD_MSG.SUBSCRIBEED }}</h3>
-      <br />
-      <h2>{{ DASHBOARD_MSG.MESSAGE_FROM }} {{ selectedAddress }}:</h2>
-      <pre>{{ rawData | json }}</pre>
-    </div>
+      <button
+        class="mt-5 bg-transparent text-white font-semibold hover:text-white py-2 px-4 rounded border border-white"
+        (click)="openRawDataModal()"
+      >
+        {{ DASHBOARD_MSG.PREVIEW }}
+      </button>
+    </ng-container>
   </div>
 </div>
