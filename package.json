@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@formkit/tempo": "^0.1.1",
     "@ng-select/ng-select": "^11.2.0",
     "@nucypher/taco": "^0.2.6",
     "@types/chart.js": "^2.9.41",

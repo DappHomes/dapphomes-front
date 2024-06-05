@@ -21,7 +21,8 @@ export class DashboardComponent implements OnInit {
   selectedAddress!: Address;
   isConnectingDisplayed = false;
   isAddress = false;
-  rawData = null;
+  mainBedroom: any[] = [];
+  basementOffice: any[] = [];
 
   readonly DASHBOARD_MSG = MESSAGES.DASHBOARD;
 
@@ -56,7 +57,7 @@ export class DashboardComponent implements OnInit {
     this.dialog.open(RawDataComponent, {
       width: '1200px',
       height: '1200px',
-      data: { rawData: this.rawData, selectedAddress: this.selectedAddress },
+      data: { rawData: [], selectedAddress: this.selectedAddress },
     });
   }
 
@@ -75,8 +76,12 @@ export class DashboardComponent implements OnInit {
   private setSensorsData() {
     this.decryptMessage()
       .then((response) => {
+        const sensorsData: any[] = [];
+        response.forEach((response) => {
+          sensorsData.push(JSON.parse(response));
+        });
         this.isConnectingDisplayed = false;
-        this.rawData = JSON.parse(response);
+        this.setSensorDataByType(sensorsData);
       })
       .catch((error) => {
         console.error(error);
@@ -84,5 +89,16 @@ export class DashboardComponent implements OnInit {
           this.router.navigate(['/not-subscribed']);
         }
       });
+  }
+
+  private setSensorDataByType(sensorsData: any[] = []) {
+    const mainBedroom = sensorsData.filter(
+      ({ location }) => location === 'main_bedroom'
+    );
+    const basementOffice = sensorsData.filter(
+      ({ location }) => location === 'basement_office'
+    );
+    this.mainBedroom = mainBedroom;
+    this.basementOffice = basementOffice;
   }
 }

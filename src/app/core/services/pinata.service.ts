@@ -16,9 +16,9 @@ export class PinataService {
 
   async decryptMessage(token: string) {
     const lastPinnedFiles = await this.getLastPinnedFiles(token);
-    const response = await lastPinnedFiles.json();
-    console.log(response);
-    return this.decryptFromBytes(Buffer.from(response.cypher, 'hex'));
+    const lastPinnedBytes = await this.getLastPinnedBytes(lastPinnedFiles);
+    const decryptedMsg = this.getDecryptFromBytes(lastPinnedBytes);
+    return Promise.all(decryptedMsg);
   }
 
   private async getLastPinnedFiles(token: string) {
@@ -27,10 +27,17 @@ export class PinataService {
       headers: { Authorization: `Bearer ${token}` },
     };
     const result = await fetch(environment.PINATA_PIN_LIST_URL, options);
-    const data = await result.json();
-    console.log(data);
-    const { ipfs_pin_hash } = data.rows[0];
-    return fetch(`${environment.IPFS_BASE_URL}${ipfs_pin_hash}`);
+    const { rows } = await result.json();
+
+    const lastPinnedFiles: any[] = [];
+    rows.forEach((row: any) => {
+      const { ipfs_pin_hash } = row;
+      lastPinnedFiles.push(
+        fetch(`${environment.IPFS_BASE_URL}${ipfs_pin_hash}`)
+      );
+    });
+
+    return Promise.all(lastPinnedFiles);
   }
 
   private async decryptFromBytes(encryptedBytes: Uint8Array) {
@@ -60,12 +67,28 @@ export class PinataService {
       browserProvider.getSigner()
     );
 
-    console.log(`+ decrypted bytes ${fromBytes(decryptedBytes)}`)
-
     return fromBytes(decryptedBytes);
   }
 
   private getAmoyChain() {
     return environment.web3ModalConfig.chains[0];
+  }
+
+  private async getLastPinnedBytes(lastPinnedFiles: any[] = []) {
+    const lastPinnedJsons: any[] = [];
+    lastPinnedFiles.forEach((lastPinnedFile) => {
+      lastPinnedJsons.push(lastPinnedFile.json());
+    });
+    return Promise.all(lastPinnedJsons);
+  }
+
+  private getDecryptFromBytes(lastPinnedBytes: any[] = []) {
+    const decryptedMsg: any[] = [];
+    lastPinnedBytes.forEach((lastPinnedByte) => {
+      decryptedMsg.push(
+        this.decryptFromBytes(Buffer.from(lastPinnedByte.cypher, 'hex'))
+      );
+    });
+    return decryptedMsg;
   }
 }
