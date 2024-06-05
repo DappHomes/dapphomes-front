@@ -16,8 +16,9 @@ export class PinataService {
 
   async decryptMessage(token: string) {
     const lastPinnedFiles = await this.getLastPinnedFiles(token);
-    const response = Buffer.from(await lastPinnedFiles.arrayBuffer());
-    return this.decryptFromBytes(response);
+    const response = await lastPinnedFiles.json();
+    console.log(response);
+    return this.decryptFromBytes(Buffer.from(response.cypher, 'hex'));
   }
 
   private async getLastPinnedFiles(token: string) {
@@ -27,6 +28,7 @@ export class PinataService {
     };
     const result = await fetch(environment.PINATA_PIN_LIST_URL, options);
     const data = await result.json();
+    console.log(data);
     const { ipfs_pin_hash } = data.rows[0];
     return fetch(`${environment.IPFS_BASE_URL}${ipfs_pin_hash}`);
   }
@@ -57,6 +59,8 @@ export class PinataService {
       getPorterUri(domains.TESTNET),
       browserProvider.getSigner()
     );
+
+    console.log(`+ decrypted bytes ${fromBytes(decryptedBytes)}`)
 
     return fromBytes(decryptedBytes);
   }
