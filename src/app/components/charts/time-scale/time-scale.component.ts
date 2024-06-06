@@ -22,30 +22,44 @@ export class TimeScaleComponent implements OnInit {
   }
 
   private createChart() {
-    const datasets: any[] = [];
-    const colorKeys = Object.keys(CHART_COLORS);
+    const datasetsTemp: any[] = [];
+    const datasetsHumidity: any[] = [];
 
-    this.sensorsData.slice(0, 7).forEach((data, index) => {
-      const {
-        timestamp,
-        readings: {
-          temperature: { value: temp },
-          humidity: { value: humidity },
-        },
-      } = data || {};
+    console.log(this.sensorsData);
 
-      datasets.push({
-        label: format(new Date(timestamp * 1000), 'MMMM D, YYYY h:mm a', 'es'),
-        backgroundColor: transparentize(colorKeys[index], 0.5),
-        borderColor: colorKeys[index],
-        fill: false,
-        data: [temp, humidity],
-      });
+    datasetsTemp.push({
+      label: 'Temperature',
+      backgroundColor: transparentize(CHART_COLORS.red, 0.5),
+      borderColor: CHART_COLORS.red,
+      fill: false,
+      data: this.sensorsData.map(
+        ({
+          readings: {
+            temperature: { value },
+          },
+        }) => value
+      ),
+    });
+
+    datasetsHumidity.push({
+      label: 'Humidity',
+      backgroundColor: transparentize(CHART_COLORS.blue, 0.5),
+      borderColor: CHART_COLORS.blue,
+      fill: false,
+      data: this.sensorsData.map(
+        ({
+          readings: {
+            humidity: { value },
+          },
+        }) => value
+      ),
     });
 
     const data = {
-      labels: ['Temp', 'Humidity'],
-      datasets,
+      labels: this.sensorsData.map((data) =>
+        format(new Date(data.timestamp * 1000), 'MMMM D, YYYY h:mm a', 'es')
+      ),
+      datasets: [...datasetsTemp, ...datasetsHumidity],
     };
 
     const options = {
@@ -56,6 +70,12 @@ export class TimeScaleComponent implements OnInit {
         },
       },
       scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Date',
+          },
+        },
         y: {
           suggestedMin: 25,
           suggestedMax: 50,
