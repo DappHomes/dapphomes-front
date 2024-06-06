@@ -40,17 +40,9 @@
     >
       <p>{{ DASHBOARD_MSG.CONNECTING }} {{ selectedAddress }}</p>
     </div>
-
     <time-scale-type
-      *ngIf="mainBedroom!.length > 0"
-      [sensorsData]="mainBedroom"
+      *ngIf="sensorsData.length > 0"
+      [sensorsData]="sensorsData"
     ></time-scale-type>
-    <!--
-      <time-scale-type
-        class="mt-5"
-        *ngIf="basementOffice!.length > 0"
-        [sensorsData]="basementOffice"
-      ></time-scale-type>
-    -->
   </div>
 </div>

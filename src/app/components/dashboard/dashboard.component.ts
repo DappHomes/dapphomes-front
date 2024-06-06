@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { PinataService } from '@services/pinata.service';
 import { SubscriptionService } from '@services/subscription.service';
 import { ERRORS } from '@utils/messages';
-import { Address } from 'web3';
 import { MESSAGES } from '../../utils/messages';
 import { Web3Service } from '../../core/services/web3.service';
 import { FactoryService } from '@services/factory.service';
@@ -17,12 +16,11 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class DashboardComponent implements OnInit {
   isDashboardVisible = false;
-  marketplaceAddresses: Address[] = [];
-  selectedAddress!: Address;
+  marketplaceAddresses: string[] = [];
+  selectedAddress!: string;
   isConnectingDisplayed = false;
   isAddress = false;
-  mainBedroom: any[] = [];
-  basementOffice: any[] = [];
+  sensorsData: any[] = [];
 
   readonly DASHBOARD_MSG = MESSAGES.DASHBOARD;
 
@@ -49,7 +47,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  addressChange(address: Address) {
+  addressChange(address: string) {
     this.selectedAddress = address;
   }
 
@@ -81,7 +79,7 @@ export class DashboardComponent implements OnInit {
           sensorsData.push(JSON.parse(response));
         });
         this.isConnectingDisplayed = false;
-        this.setSensorDataByType(sensorsData);
+        this.sensorsData = sensorsData;
       })
       .catch((error) => {
         console.error(error);
@@ -89,16 +87,5 @@ export class DashboardComponent implements OnInit {
           this.router.navigate(['/not-subscribed']);
         }
       });
-  }
-
-  private setSensorDataByType(sensorsData: any[] = []) {
-    const mainBedroom = sensorsData.filter(
-      ({ location }) => location === 'main_bedroom'
-    );
-    const basementOffice = sensorsData.filter(
-      ({ location }) => location === 'basement_office'
-    );
-    this.mainBedroom = mainBedroom;
-    this.basementOffice = basementOffice;
   }
 }
