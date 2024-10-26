@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { PinataService } from '@services/pinata.service';
 import { SubscriptionService } from '@services/subscription.service';
 import { ERRORS } from '@utils/messages';
-import { Address } from 'web3';
 import { MESSAGES } from '../../utils/messages';
 import { Web3Service } from '../../core/services/web3.service';
 import { FactoryService } from '@services/factory.service';
@@ -17,11 +16,11 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class DashboardComponent implements OnInit {
   isDashboardVisible = false;
-  marketplaceAddresses: Address[] = [];
-  selectedAddress!: Address;
+  marketplaceAddresses: string[] = [];
+  selectedAddress!: string;
   isConnectingDisplayed = false;
   isAddress = false;
-  rawData = null;
+  sensorsData: any[] = [];
 
   readonly DASHBOARD_MSG = MESSAGES.DASHBOARD;
 
@@ -48,7 +47,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  addressChange(address: Address) {
+  addressChange(address: string) {
     this.selectedAddress = address;
   }
 
@@ -56,7 +55,7 @@ export class DashboardComponent implements OnInit {
     this.dialog.open(RawDataComponent, {
       width: '1200px',
       height: '1200px',
-      data: { rawData: this.rawData, selectedAddress: this.selectedAddress },
+      data: { rawData: [], selectedAddress: this.selectedAddress },
     });
   }
 
@@ -75,8 +74,12 @@ export class DashboardComponent implements OnInit {
   private setSensorsData() {
     this.decryptMessage()
       .then((response) => {
+        const sensorsData: any[] = [];
+        response.forEach((response) => {
+          sensorsData.push(JSON.parse(response));
+        });
         this.isConnectingDisplayed = false;
-        this.rawData = JSON.parse(response);
+        this.sensorsData = sensorsData;
       })
       .catch((error) => {
         console.error(error);

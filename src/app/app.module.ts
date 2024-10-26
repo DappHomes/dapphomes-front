@@ -15,6 +15,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateMarketplaceComponent } from '@components/create-marketplace/create-marketplace.component';
 import { RawDataComponent } from '@components/raw-data/raw-data.component';
+import { TimeScaleComponent } from '@components/charts/time-scale/time-scale.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RawDataComponent } from '@components/raw-data/raw-data.component';
     AddMarketplaceComponent,
     CreateMarketplaceComponent,
     RawDataComponent,
+    TimeScaleComponent,
   ],
   imports: [
     BrowserModule,

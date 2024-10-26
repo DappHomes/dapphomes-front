@@ -33,23 +33,16 @@
       {{ DASHBOARD_MSG.SUBMIT }}
     </button>
   </div>
-  <div *ngIf="isAddress" class="flex flex-col items-center">
+  <div class="center">
     <div
       *ngIf="isConnectingDisplayed"
       class="flex justify-center items-center mb-10 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
     >
       <p>{{ DASHBOARD_MSG.CONNECTING }} {{ selectedAddress }}</p>
     </div>
-
-    <ng-container *ngIf="rawData">
-      <line-chart-type class="chart" [sensorsData]="rawData"></line-chart-type>
-
-      <button
-        class="mt-5 bg-transparent text-white font-semibold hover:text-white py-2 px-4 rounded border border-white"
-        (click)="openRawDataModal()"
-      >
-        {{ DASHBOARD_MSG.PREVIEW }}
-      </button>
-    </ng-container>
+    <time-scale-type
+      *ngIf="sensorsData.length > 0"
+      [sensorsData]="sensorsData"
+    ></time-scale-type>
   </div>
 </div>

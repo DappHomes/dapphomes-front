@@ -21,24 +21,20 @@ export class LineChartComponent implements OnInit {
 
   private createChart() {
     const {
-      main: { temp, feels_like, temp_min, temp_max, humidity },
-      wind: { speed },
-      name,
+      readings: { temperature: {value: temp}, pressure: {value: pressure}, humidity: {value: humidity} },
+      location,
     } = this.sensorsData || {};
 
     const data = {
       labels: [
         'Temp',
-        'Feels like',
-        'Temp min',
-        'Temp max',
+        'Pressure',
         'Humidity',
-        'Wind Speed',
       ],
       datasets: [
         {
-          label: `Place ${name}`,
-          data: [temp, feels_like, temp_min, temp_max, humidity, speed],
+          label: `Place ${location}`,
+          data: [temp, pressure, humidity],
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.1,
